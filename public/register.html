@@ -1,0 +1,8 @@
+<script src="/socket.io/socket.io.js"></script>
+<ul>
+  {#devices}
+    <li data-id="{mac}">
+      {mac} : {locations.as_select} : <button class="btn btn-primary">Register</button>
+    </li>
+  {/devices}
+</ul>
