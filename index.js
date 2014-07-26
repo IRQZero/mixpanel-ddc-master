@@ -7,7 +7,8 @@
     socket = require("socket.io"),
     nodeStatic = require("serve-static"),
     osc = require("node-osc"),
-    bodyParser = require("body-parser");
+    bodyParser = require("body-parser"),
+    less = require("less-middleware");
 
   var app = express(),
     server = http.Server(app),
@@ -41,6 +42,7 @@
 
   });
 
+  app.use(less(__dirname + "/public", config.less));
   app.use(nodeStatic(__dirname + "/public"));
   app.use(bodyParser.json());
 
