@@ -1,0 +1,8 @@
+{
+  "name": "mixpanel-ddc-master",
+  "version": "0.0.1",
+  "dependencies": {
+    "oraculum": "~0.0.2",
+    "bootstrap": "~3.2.0"
+  }
+}

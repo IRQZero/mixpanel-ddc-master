@@ -1,0 +1,11 @@
+{
+  "name": "mixpanel-ddc-master",
+  "version": "0.0.1",
+  "repository": "https://github.com/misterinterrupt/mixpanel-ddc-master.git",
+  "dependencies": {
+    "express": "^4.7.0",
+    "nano": "^5.10.0",
+    "serve-static": "^1.4.0",
+    "socket.io": "^1.0.6"
+  }
+}
