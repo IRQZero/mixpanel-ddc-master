@@ -1,0 +1,12 @@
+{
+  "port": 8000,
+  "couch-db": {
+    "host": "127.0.0.1",
+    "port": 5984
+  },
+  "data-wall": {
+    "host": "127.0.0.1",
+    "port": 9999,
+    "interval": 300
+  }
+}

@@ -1,16 +1,21 @@
 (function(){
-  var express = require("express"),
+  var env = process.env['NODE_ENV'] || 'development',
+    config = require('./config/' + env + '.json'),
+    express = require("express"),
     http = require("http"),
-    nano = require("nano")("http://localhost:5984"),
+    nano = require("nano")("http://" + config['couch-db'].host + ":" + config['couch-db'].port + ""),
     socket = require("socket.io"),
     nodeStatic = require("serve-static"),
+    osc = require("node-osc"),
     bodyParser = require("body-parser");
 
   var app = express(),
     server = http.Server(app),
     io = socket(server),
     devices = {},
-    clients = [];
+    clients = [],
+    aggregate = [],
+    oscClient = osc.Client(config['data-wall'].host, config['data-wall'].port);
 
   app.get('register', function(req, res){
     var macAddress = req.body.macAddress,
@@ -44,6 +49,8 @@
     socket.emit("welcome", {});
     socket.on('ido', function(job){
       switch( job ){
+        case 'node':
+
         case 'register':
           socket.on('register-device', function(device, location){
             devices[device].location = location;
@@ -66,6 +73,11 @@
     });
   });
 
-  server.listen(8000);
+  function updateVisual() {
+    oscClient.send.apply(oscClient, aggregate);
+    setTimeout(updateVisual, config['data-wall'].interval);
+  }
+
+  server.listen(config.port);
 
 })();
