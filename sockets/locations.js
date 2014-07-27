@@ -1,4 +1,4 @@
-module.exports = function(io){
+module.exports = function(io, db){
   var locations = io.of('/locations'),
     locationArray = [
       {name: "Glow Bar"},
@@ -18,9 +18,6 @@ module.exports = function(io){
   locations.on('connection', function(socket){
     socket.on('read', function(data){
       socket.emit('read:result', locationArray);
-    });
-    socket.on('create', function(data){
-      console.log(data);
     });
     socket.on('disconnect', function(){
       console.log('socket disconnected from /drinks namespace')

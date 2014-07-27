@@ -17,7 +17,37 @@
     io = socket(server),
     devices = {},
     clients = [],
-    aggregate = [],
+    aggregate = {
+      Attendance: {
+        total: {
+          People: 0
+        }
+      },
+      BagCheck: {
+        total: {
+          Coats: {
+            val: 0,
+            scaled: 0.0
+          },
+          Purses: {
+            val: 0,
+            scaled: 0.0
+          },
+          Bags: {
+            val: 0,
+            scaled: 0.0
+          }
+        }
+      },
+      DrinkTotal: {
+        totalBeer: 0,
+        totalWine: 0,
+        totalSpirits: 0
+      },
+      BarTime: {
+        drinkServedTime: 0
+      }
+    },
     oscClient = osc.Client(config['data-wall'].host, config['data-wall'].port),
     index = "";
 
@@ -54,8 +84,17 @@
       require('./sockets/' + socket)(io, db);
     });
 
-    
+    feed = db.follow({include_docs: true, });
+
+    feed.on('change', updateAggregate);
+
+    feed.follow();
+
   });
+
+  function updateAggregate(change) {
+    console.log(change);
+  }
 
   function updateVisual() {
     oscClient.send.apply(oscClient, aggregate);

@@ -79,9 +79,9 @@ define [
             heightRatio: 0.50
             container: @$ '.send'
             collection: @__factory().get 'Collection', [{
-              name: 'send'
-            }, {
               name: 'cancel'
+            }, {
+              name: 'send'
             }]
             model: @model
   }, {

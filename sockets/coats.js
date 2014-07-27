@@ -15,7 +15,7 @@ module.exports = function(io, db){
         if (err) {
           socket.emit('create:error', err);
         } else {
-          socket.emit('create:result', result);
+          socket.emit('create:success', result);
         }
       });
     });

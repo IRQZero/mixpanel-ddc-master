@@ -11,11 +11,13 @@ module.exports = function(io, db){
       socket.emit('read:result', drinkArray);
     });
     socket.on('create', function(data){
+      console.log('got create message', data);
       db.insert(data, function(err, result){
         if (err) {
           socket.emit('create:error', err);
         } else {
-          socket.emit('create:result', result);
+          console.log('finished inserting');
+          socket.emit('create:success');
         }
       });
     });

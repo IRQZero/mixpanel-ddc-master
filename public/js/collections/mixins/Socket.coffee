@@ -27,8 +27,6 @@ define [
 
       @messageReady.done =>
         @socket.on 'read:result', @onSocketResult
-        @socket.on 'create:result', @onSocketResult
-        @socket.on 'update:result', @onSocketResult
 
       @socket.on 'welcome', @onSocketWelcome
 
