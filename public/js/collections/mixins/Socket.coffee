@@ -5,6 +5,8 @@ define [
 
   $ = MixPanelFactory.get 'jQuery'
 
+  openNames = {}
+
   MixPanelFactory.defineMixin 'Socket.CollectionMixin', {
     onSocketResult: (resp) ->
       return false unless @set @parse resp
@@ -15,9 +17,13 @@ define [
 
     mixinitialize: ->
       _.bindAll this, 'onSocketResult', 'onSocketWelcome'
-      @messageReady = $.Deferred()
+      namespace = _.result this, 'url'
+      if openNames[namespace]?
+        @messageReady = openNames[namespace]
+      else
+        @messageReady = openNames[namespace] = $.Deferred()
 
-      @socket = @__factory().get 'Socket', _.result this, 'url'
+      @socket = @__factory().get 'Socket', namespace
 
       @messageReady.done =>
         @socket.on 'read:result', @onSocketResult

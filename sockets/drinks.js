@@ -10,6 +10,9 @@ module.exports = function(io){
     socket.on('read', function(data){
       socket.emit('read:result', drinkArray);
     });
+    socket.on('create', function(data){
+      console.log(data);
+    });
     socket.on('disconnect', function(){
       console.log('socket disconnected from /drinks namespace')
     });

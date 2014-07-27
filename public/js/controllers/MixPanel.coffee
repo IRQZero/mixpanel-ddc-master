@@ -7,9 +7,9 @@ define [
 
   MixPanelFactory.extend 'Controller', 'MixPanel.Controller', {
     index: ->
-      @reuse 'buttons', 'ButtonPanel.View', {
-        collection: 'MainOptions.Collection'
+      @view = MixPanelFactory.get 'ButtonPanel.View', {
         container: 'body'
+        collection: 'MainOptions.Collection'
       }
   }, {
     inheritMixins: true

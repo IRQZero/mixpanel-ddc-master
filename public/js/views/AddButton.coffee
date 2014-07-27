@@ -4,10 +4,12 @@ define [
 ], (MixPanelFactory) ->
 
   MixPanelFactory.extend 'Button.View', 'AddButton.View', {
+    initialize: ({@setModel}) ->
     events:
       click: 'addItem'
     addItem: ->
-      @collection.add @model.toJSON()
+      name = @model.get 'name'
+      @setModel.set name, @setModel.get(name) + 1
   }, {
     inheritMixins: true
   }

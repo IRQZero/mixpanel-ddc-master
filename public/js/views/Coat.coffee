@@ -7,6 +7,7 @@ define [
   'MixPanel/collections/Team'
   'MixPanel/views/ButtonPanel'
   'oraculum/mixins/disposable'
+  'MixPanel/views/ActionButton'
   'oraculum/views/mixins/attach'
   'oraculum/views/mixins/subview'
   'oraculum/views/mixins/auto-render'
@@ -48,7 +49,7 @@ define [
             heightRatio: 0.75
             modelView: 'AddButton.View'
             viewOptions:
-              collection: @model.get 'coats'
+              setModel: @model
             container: @$ '.coats'
             model: @model
             collection: 'Coat.Collection'
@@ -62,15 +63,18 @@ define [
               <div>Team: <%- team %></div>
               <div>Drinks:
                 <ul>
-                  <li> Beer: <%- beer %> </li>
-                  <li> Wine: <%- wine %> </li>
-                  <li> Spirits: <%- spirits %></li>
+                  <li> Coat: <%- Coat %> </li>
+                  <li> Purse: <%- Purse %> </li>
+                  <li> Luggage: <%- Luggage %></li>
                 </ul>
               </div>
             """
         send: ->
           view: 'ButtonPanel.View'
           viewOptions:
+            modelView: 'ActionButton.View'
+            viewOptions:
+              actionModel: @model
             container: @$ '.send'
             heightRatio: 0.5
             collection: @__factory().get 'Collection', [{
