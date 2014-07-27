@@ -1,4 +1,4 @@
-module.exports = function(io){
+module.exports = function(io, db){
   var coats = io.of('/coats'),
     coatArray = [
       {name: 'Coat'},
@@ -11,7 +11,13 @@ module.exports = function(io){
       socket.emit('read:result', coatArray);
     });
     socket.on('create', function(data){
-      console.log(data);
+      db.insert(data, function(err, result){
+        if (err) {
+          socket.emit('create:error', err);
+        } else {
+          socket.emit('create:result', result);
+        }
+      });
     });
     socket.on('disconnect', function(){
       console.log('socket disconnected from /coats namespace')

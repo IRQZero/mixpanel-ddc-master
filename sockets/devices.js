@@ -1,14 +1,10 @@
 module.exports = function(io, db){
-  var drinks = io.of('/drinks'),
-    drinkArray = [
-      {name: 'Beer'},
-      {name: 'Wine'},
-      {name: 'Spirits'}
-    ];
+  var devices = io.of('/devices'),
+    deviceArray = [];
 
-  drinks.on('connection', function(socket){
+  devices.on('connection', function(socket){
     socket.on('read', function(data){
-      socket.emit('read:result', drinkArray);
+      socket.emit('read:result', deviceArray);
     });
     socket.on('create', function(data){
       db.insert(data, function(err, result){

@@ -1,4 +1,4 @@
-module.exports = function(io){
+module.exports = function(io, db){
   var teams = io.of('/teams'),
     teamArray = [
       {name: 'Blue'},

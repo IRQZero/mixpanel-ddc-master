@@ -1,4 +1,4 @@
-module.exports = function(io){
+module.exports = function(io, db){
   var routes = io.of('/routes'),
     routeArray = [
       {name: 'register'},

@@ -40,38 +40,21 @@
     res.end(index);
   });
 
-  require('./sockets/routes')(io);
-  require('./sockets/drinks')(io);
-  require('./sockets/teams')(io);
-  require('./sockets/coats')(io);
-
-  io.on('connection', function(socket){
-    clients.push(socket);
-    socket.emit("welcome", {});
-    socket.on('ido', function(job){
-      switch( job ){
-        case 'node':
-
-        case 'register':
-          socket.on('register-device', function(device, location){
-            devices[device].location = location;
-          });
-          break;
-        case 'bar':
-          socket.on('order-drink', function(user, drink){
-
-          });
-          break;
-        case 'coatcheck':
-          socket.on('check-coat', function(user, coat){
-
-          });
-          break;
-        default:
-          throw new Error('Invalid job sent');
-          break;
-      }
+  require('./initializers/db')(nano, config, function(db){
+    // initialize all the socket namespaces with the socket and the db
+    [
+      'routes',
+      'drinks',
+      'teams',
+      'coats',
+      'devices',
+      'locations',
+      'users'
+    ].map(function(socket){
+      require('./sockets/' + socket)(io, db);
     });
+
+    
   });
 
   function updateVisual() {
