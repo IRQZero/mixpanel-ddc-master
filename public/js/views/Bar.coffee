@@ -1,5 +1,8 @@
 define [
   'MixPanel'
+  'MixPanel/views/Report'
+  'MixPanel/collections/Team'
+  'MixPanel/collections/Drink'
   'MixPanel/views/ButtonPanel'
   'oraculum/mixins/disposable'
   'oraculum/views/mixins/attach'
@@ -13,9 +16,11 @@ define [
     mixinOptions:
       template: """
       <div class="row-fluid">
-        <div class="team col-sm-3">
+        <div class="team col-sm-2">
         </div>
-        <div class="drink col-sm-3">
+        <div class="drink col-sm-8">
+        </div>
+        <div class="report col-sm-2">
         </div>
       </div>
       <div class="row-fluid">
@@ -24,22 +29,32 @@ define [
       </div>
       """
       subviews:
-        team:
+        team: ->
           view: 'ButtonPanel.View'
-          viewOptions: ->
+          viewOptions:
             container: @$ '.team'
             model: @model
             collection: 'Team.Collection'
-        drink:
+        drink: ->
           view: 'ButtonPanel.View'
-          viewOptions: ->
+          viewOptions:
             container: @$ '.drink'
             model: @model
             collection: 'Drink.Collection'
-        send:
-          view: 'Button.View'
-          viewOptions: ->
+        report: ->
+          view: 'Report.View'
+          viewOptions:
+            container: @$ '.report'
+            model: @model
+        send: ->
+          view: 'ButtonPanel.View'
+          viewOptions:
             container: @$ '.send'
+            collection: @__factory().get 'Collection', [{
+              name: 'send'
+            }, {
+              name: 'cancel'
+            }]
             model: @model
   }, {
     mixins: [

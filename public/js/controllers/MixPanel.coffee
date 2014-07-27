@@ -9,6 +9,7 @@ define [
     index: ->
       @reuse 'buttons', 'ButtonPanel.View', {
         collection: 'MainOptions.Collection'
+        container: 'body'
       }
   }, {
     inheritMixins: true

@@ -30,6 +30,33 @@
   app.all('*', function(req, res){
     res.redirect('/');
   });
+
+  var routes = io.of('/routes'),
+    routeArray = [
+      {name: 'register'},
+      {name: 'bar'},
+      {name: 'coat'}
+    ];
+
+  routes.on('connection', function(socket){
+    socket.on('read', function(data){
+      socket.emit('read:result', routeArray);
+    });
+    socket.on('create', function(data){
+      var result = _.findWhere(routesArray, data);
+      if (!result) {
+        routesArray.push(data);
+      }
+      socket.emit('create:result', routeArray);
+    });
+
+    socket.on('disconnect', function(){
+      console.log('socket disconnected from /routes namespace')
+    });
+
+    socket.emit('welcome');
+  });
+
   io.on('connection', function(socket){
     clients.push(socket);
     socket.emit("welcome", {});

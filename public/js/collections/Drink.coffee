@@ -4,8 +4,8 @@ define [
   'oraculum/models/mixins/auto-fetch'
 ], (MixPanelFactory) ->
 
-  MixPanelFactory.extend 'Collection', 'MainOptions.Collection', {
-    url: '/routes'
+  MixPanelFactory.extend 'Collection', 'Drink.Collection', {
+    url: '/drinks'
     model: 'Model'
   }, {
     mixins: [

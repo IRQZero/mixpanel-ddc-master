@@ -3,6 +3,4 @@ define [
   'socket.io'
 ], (MixPanelFactory, io) ->
 
-  MixPanelFactory.define 'Socket', (->
-    io()
-  ), singleton: true
+  MixPanelFactory.define 'Socket', ((namespace)-> io(namespace))
