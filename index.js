@@ -43,6 +43,7 @@
   require('./sockets/routes')(io);
   require('./sockets/drinks')(io);
   require('./sockets/teams')(io);
+  require('./sockets/coats')(io);
 
   io.on('connection', function(socket){
     clients.push(socket);

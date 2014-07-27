@@ -3,30 +3,30 @@ define [
   'MixPanel/views/Report'
   'MixPanel/views/SetButton'
   'MixPanel/views/AddButton'
+  'MixPanel/collections/Coat'
   'MixPanel/collections/Team'
-  'MixPanel/collections/Drink'
   'MixPanel/views/ButtonPanel'
   'oraculum/mixins/disposable'
   'oraculum/views/mixins/attach'
   'oraculum/views/mixins/subview'
   'oraculum/views/mixins/auto-render'
   'oraculum/views/mixins/html-templating'
+  'oraculum/views/mixins/remove-disposed'
 ], (MixPanelFactory) ->
 
-  MixPanelFactory.extend 'View', 'Bar.View', {
-    className: "row-fluid"
+  MixPanelFactory.extend 'View', 'Coat.View', {
     mixinOptions:
       template: """
       <div class="row-fluid">
         <div class="team col-sm-5">
         </div>
-        <div class="drink col-sm-5">
+        <div class="coats col-sm-5">
         </div>
         <div class="report col-sm-2">
         </div>
       </div>
       <div class="row-fluid">
-        <div class="send col-sm-12">
+        <div class="send">
         </div>
       </div>
       """
@@ -42,19 +42,18 @@ define [
             container: @$ '.team'
             model: @model
             collection: 'Team.Collection'
-        drink: ->
+        coats: ->
           view: 'ButtonPanel.View'
           viewOptions:
             heightRatio: 0.75
             modelView: 'AddButton.View'
             viewOptions:
-              collection: @model.get 'drinks'
-            container: @$ '.drink'
+              collection: @model.get 'coats'
+            container: @$ '.coats'
             model: @model
-            collection: 'Drink.Collection'
-
+            collection: 'Coat.Collection'
         report: ->
-          view: 'Report.View'
+          view: "Report.View"
           viewOptions:
             heightRatio: 0.75
             container: @$ '.report'
@@ -69,21 +68,21 @@ define [
                 </ul>
               </div>
             """
-
         send: ->
           view: 'ButtonPanel.View'
           viewOptions:
-            heightRatio: 0.50
             container: @$ '.send'
+            heightRatio: 0.5
             collection: @__factory().get 'Collection', [{
-              name: 'send'
-            }, {
               name: 'cancel'
+            }, {
+              name: 'send'
             }]
             model: @model
   }, {
     mixins: [
       'Disposable.Mixin'
+      'RemoveDisposed.ViewMixin'
       'HTMLTemplating.ViewMixin'
       'Subview.ViewMixin'
       'Attach.ViewMixin'

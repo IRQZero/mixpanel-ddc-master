@@ -3,8 +3,8 @@ define [
   'MixPanel/collections/mixins/Socket'
 ], (MixPanelFactory) ->
 
-  MixPanelFactory.extend 'Model', 'BarMessage.Model', {
-    url: '/drinks'
+  MixPanelFactory.extend 'Model', 'CoatMessage.Model', {
+    url: '/coats'
   }, {
     mixins: [
       'Socket.CollectionMixin'

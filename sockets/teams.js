@@ -1,10 +1,11 @@
 module.exports = function(io){
   var teams = io.of('/teams'),
     teamArray = [
-      {name: 'red'},
-      {name: 'blue'},
-      {name: 'yellow'},
-      {name: 'green'}
+      {name: 'Blue'},
+      {name: 'Teal'},
+      {name: 'Orange'},
+      {name: 'Purple'},
+      {name: 'Magenta'}
     ];
 
   teams.on('connection', function(socket){

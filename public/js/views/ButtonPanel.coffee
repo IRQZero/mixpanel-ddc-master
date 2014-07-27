@@ -15,15 +15,16 @@ define [
         modelView: 'Button.View'
       listen:
         'visibilityChange this': 'organizeChildren'
+    initialize: ({@heightRatio, @widthRatio} = {}) ->
     organizeChildren: ->
       l = Math.sqrt @collection.length
       w = 100 / Math.ceil l # width required for a square
       hr = if (@collection.length % w) is 0 then 1 else 0
       h = 100 / (Math.ceil(l) + hr)
-      @_subviews.map (view) ->
+      @_subviews.map (view) =>
         view.$el.css {
-          height: "#{h}%"
-          width: "#{w}%"
+          height: "#{h * (@heightRatio or 1)}%"
+          width: "#{w * (@widthRatio or 1)}%"
         }
   }, {
     mixins: [

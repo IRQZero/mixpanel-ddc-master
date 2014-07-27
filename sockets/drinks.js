@@ -1,9 +1,9 @@
 module.exports = function(io){
   var drinks = io.of('/drinks'),
     drinkArray = [
-      {name: 'beer'},
-      {name: 'wine'},
-      {name: 'cocktail'}
+      {name: 'Beer'},
+      {name: 'Wine'},
+      {name: 'Spirits'}
     ];
 
   drinks.on('connection', function(socket){
