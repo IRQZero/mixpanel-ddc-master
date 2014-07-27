@@ -8,7 +8,8 @@
     nodeStatic = require("serve-static"),
     osc = require("node-osc"),
     bodyParser = require("body-parser"),
-    less = require("less-middleware");
+    less = require("less-middleware"),
+    coffeeMiddle = require("coffee-middleware");
 
   var app = express(),
     server = http.Server(app),
@@ -18,34 +19,17 @@
     aggregate = [],
     oscClient = osc.Client(config['data-wall'].host, config['data-wall'].port);
 
-  app.get('register', function(req, res){
-    var macAddress = req.body.macAddress,
-      device = devices[macAddress];
-
-    if (device == null) {
-      devices[macAddress] = req.body;
-      device = devices[macAddress];
-    }
-
-    if (device.location == null) {
-      res.json({status: "wait"});
-    } else {
-      res.json(device);
-    }
-  });
-
-  app.get('location', function(req, res){
-
-  });
-
-  app.post('user', function(req, res){
-
-  });
+  app.use(coffeeMiddle({
+    src: __dirname+'/public',
+    compress: env === "production"
+  }));
 
   app.use(less(__dirname + "/public", config.less));
   app.use(nodeStatic(__dirname + "/public"));
   app.use(bodyParser.json());
-
+  app.all('*', function(req, res){
+    res.redirect('/');
+  });
   io.on('connection', function(socket){
     clients.push(socket);
     socket.emit("welcome", {});
