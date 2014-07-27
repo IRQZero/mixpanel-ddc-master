@@ -18,7 +18,6 @@ define [
       @started = (new Date()).getTime() unless @started?
     getTime: ->
       ended = (new Date()).getTime()
-      console.log ended, @started
       @set time: ended - @started
     resetTimer: ->
       @started = null

@@ -1,17 +1,19 @@
-module.exports = function(io, db){
+module.exports = function(io, dbs){
   var coats = io.of('/coats'),
     coatArray = [
       {name: 'Coat'},
       {name: 'Purse'},
       {name: 'Luggage'}
-    ];
+    ],
+    events = dbs.events;
 
   coats.on('connection', function(socket){
     socket.on('read', function(data){
       socket.emit('read:result', coatArray);
     });
     socket.on('create', function(data){
-      db.insert(data, function(err, result){
+      data.type = "bag";
+      events.insert(data, function(err, result){
         if (err) {
           socket.emit('create:error', err);
         } else {

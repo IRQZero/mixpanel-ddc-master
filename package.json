@@ -14,7 +14,8 @@
     "less-middleware": "^1.0.3",
     "crsh": "^0.3.2",
     "coffee-middleware": "^0.2.1",
-    "grunt": "^0.4.5"
+    "grunt": "^0.4.5",
+    "simply-deferred": "^3.0.0"
   },
   "scripts": {
     "start": "node index.js"

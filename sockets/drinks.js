@@ -1,22 +1,22 @@
-module.exports = function(io, db){
+module.exports = function(io, dbs){
   var drinks = io.of('/drinks'),
     drinkArray = [
       {name: 'Beer'},
       {name: 'Wine'},
       {name: 'Spirits'}
-    ];
+    ],
+    events = dbs.events;
 
   drinks.on('connection', function(socket){
     socket.on('read', function(data){
       socket.emit('read:result', drinkArray);
     });
     socket.on('create', function(data){
-      console.log('got create message', data);
-      db.insert(data, function(err, result){
+      data.type = "bar";
+      events.insert(data, function(err, result){
         if (err) {
           socket.emit('create:error', err);
         } else {
-          console.log('finished inserting');
           socket.emit('create:success');
         }
       });

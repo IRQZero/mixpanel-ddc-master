@@ -10,7 +10,8 @@
     bodyParser = require("body-parser"),
     less = require("less-middleware"),
     coffeeMiddle = require("coffee-middleware"),
-    fs = require("fs");
+    fs = require("fs"),
+    _ = require("underscore");
 
   var app = express(),
     server = http.Server(app),
@@ -24,19 +25,17 @@
         }
       },
       BagCheck: {
-        total: {
-          Coats: {
-            val: 0,
-            scaled: 0.0
-          },
-          Purses: {
-            val: 0,
-            scaled: 0.0
-          },
-          Bags: {
-            val: 0,
-            scaled: 0.0
-          }
+        totalCoats: {
+          val: 0,
+          scaled: 0.0
+        },
+        totalPurses: {
+          val: 0,
+          scaled: 0.0
+        },
+        totalBags: {
+          val: 0,
+          scaled: 0.0
         }
       },
       DrinkTotal: {
@@ -45,6 +44,7 @@
         totalSpirits: 0
       },
       BarTime: {
+        lastTwenty: [],
         drinkServedTime: 0
       }
     },
@@ -70,7 +70,7 @@
     res.end(index);
   });
 
-  require('./initializers/db')(nano, config, function(db){
+  require('./initializers/db')(nano, config, function(dbs){
     // initialize all the socket namespaces with the socket and the db
     [
       'routes',
@@ -81,10 +81,10 @@
       'locations',
       'users'
     ].map(function(socket){
-      require('./sockets/' + socket)(io, db);
+      require('./sockets/' + socket)(io, dbs);
     });
 
-    feed = db.follow({include_docs: true, });
+    feed = dbs.events.follow({include_docs: true, });
 
     feed.on('change', updateAggregate);
 
@@ -93,10 +93,48 @@
   });
 
   function updateAggregate(change) {
-    console.log(change);
+    var doc = change.doc;
+    switch (doc.type) {
+      case 'bar':
+        var drinkTotal = aggregate.DrinkTotal,
+          barTime = aggregate.BarTime;
+
+        drinkTotal.totalBeer += doc.Beer;
+        drinkTotal.totalWine += doc.Wine;
+        drinkTotal.totalSpritis += doc.Spirits;
+        barTime.lastTwenty.push(doc.time);
+        while (barTime.lastTwenty.length > 20) {
+          barTime.lastTwenty.shift();
+        }
+        barTime.drinkServedTime = _.reduce(barTime.lastTwenty, function(m, n){
+          return m += n;
+        }, 0) / 20;
+        break;
+      case 'bag':
+        var bagCheck = aggregate.BagCheck,
+          total, coats, purses, bags;
+
+        bagCheck.totalCoats.val += doc.Coat;
+        bagCheck.totalPurses.val += doc.Purse;
+        bagCheck.totalBags.val += doc.Luggage;
+
+        coats = bagCheck.totalCoats.val;
+        purses = bagCheck.totalPurses.val;
+        bags = bagCheck.totalBags.val;
+
+        total = coats + purses + bags;
+        bagCheck.totalCoats.scaled = total / coats * 100;
+        bagCheck.totalPurses.scaled = total / purses * 100;
+        bagCheck.totalBags.scaled = total / bags * 100;
+
+        break;
+      case 'node':
+        // lookup user id in userDb and get info to fill out team data
+        break;
+    }
   }
 
-  function updateVisual() {
+  function updateVisual(channel, interval) {
     oscClient.send.apply(oscClient, aggregate);
     setTimeout(updateVisual, config['data-wall'].interval);
   }

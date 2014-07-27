@@ -3,7 +3,11 @@
   "couch-db": {
     "host": "127.0.0.1",
     "port": 5984,
-    "db": "mixpanel-ddc-development"
+    "dbs": {
+      "events": "mixpanel-ddc-events-development",
+      "users": "mixpanel-ddc-users-development",
+      "devices": "mixpane-ddc-devices-development"
+    }
   },
   "data-wall": {
     "host": "127.0.0.1",
