@@ -9,7 +9,8 @@
     osc = require("node-osc"),
     bodyParser = require("body-parser"),
     less = require("less-middleware"),
-    coffeeMiddle = require("coffee-middleware");
+    coffeeMiddle = require("coffee-middleware"),
+    fs = require("fs");
 
   var app = express(),
     server = http.Server(app),
@@ -17,7 +18,15 @@
     devices = {},
     clients = [],
     aggregate = [],
-    oscClient = osc.Client(config['data-wall'].host, config['data-wall'].port);
+    oscClient = osc.Client(config['data-wall'].host, config['data-wall'].port),
+    index = "";
+
+  fs.readFile(__dirname+'/public/index.html', function(err, content){
+    if (err) {
+      throw new Error("Unablet to load index.html file");
+    }
+    index = content;
+  });
 
   app.use(coffeeMiddle({
     src: __dirname+'/public',
@@ -28,34 +37,12 @@
   app.use(nodeStatic(__dirname + "/public"));
   app.use(bodyParser.json());
   app.all('*', function(req, res){
-    res.redirect('/');
+    res.end(index);
   });
 
-  var routes = io.of('/routes'),
-    routeArray = [
-      {name: 'register'},
-      {name: 'bar'},
-      {name: 'coat'}
-    ];
-
-  routes.on('connection', function(socket){
-    socket.on('read', function(data){
-      socket.emit('read:result', routeArray);
-    });
-    socket.on('create', function(data){
-      var result = _.findWhere(routesArray, data);
-      if (!result) {
-        routesArray.push(data);
-      }
-      socket.emit('create:result', routeArray);
-    });
-
-    socket.on('disconnect', function(){
-      console.log('socket disconnected from /routes namespace')
-    });
-
-    socket.emit('welcome');
-  });
+  require('./sockets/routes')(io);
+  require('./sockets/drinks')(io);
+  require('./sockets/teams')(io);
 
   io.on('connection', function(socket){
     clients.push(socket);
