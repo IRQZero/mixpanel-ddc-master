@@ -20,8 +20,6 @@ module.exports = function(client, aggregate, config){
   }
 
   function beginOnslaught() {
-    console.log('Onslaught begun');
-    console.log(encodeMessage());
     sendMessage(encodeMessage());
     setTimeout(beginOnslaught, config['data-wall'].channels.BagCheck);
   }

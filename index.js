@@ -20,9 +20,7 @@
     clients = [],
     aggregate = {
       Attendance: {
-        total: {
-          People: 0
-        }
+        totalPeople: 210
       },
       BagCheck: {
         totalCoats: {
@@ -85,7 +83,9 @@
     });
 
     [
-      'BagCheck'
+      'BagCheck',
+      'DrinkTotal',
+      'Attendance'
     ].map(function(channel){
       require('./osc/' + channel)(oscClient, aggregate, config);
     });
