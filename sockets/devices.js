@@ -8,13 +8,13 @@ module.exports = function(io, dbs){
   devicesSocket.on('connection', function(socket){
 
     socket.on('read', function(data){
-      if (data === undefined) {
+      if (data == null) {
         // register ui asking for list of devices
-        devices.list(function(err, records){
+        devices.list(function(err, result){
           if (err) {
             throw new Error(err);
           }
-          socket.emit('read:result', records);
+          socket.emit('read:result', result.rows);
         });
       } else {
         var id = data.macAddress;

@@ -101,14 +101,15 @@
 
         drinkTotal.totalBeer += doc.Beer;
         drinkTotal.totalWine += doc.Wine;
-        drinkTotal.totalSpritis += doc.Spirits;
+        drinkTotal.totalSpirits += doc.Spirits;
+
         barTime.lastTwenty.push(doc.time);
         while (barTime.lastTwenty.length > 20) {
           barTime.lastTwenty.shift();
         }
         barTime.drinkServedTime = _.reduce(barTime.lastTwenty, function(m, n){
           return m += n;
-        }, 0) / 20;
+        }, 0) / barTime.lastTwenty.length;
         break;
       case 'bag':
         var bagCheck = aggregate.BagCheck,
@@ -132,6 +133,7 @@
         // lookup user id in userDb and get info to fill out team data
         break;
     }
+    console.log(aggregate);
   }
 
   function updateVisual(channel, interval) {
