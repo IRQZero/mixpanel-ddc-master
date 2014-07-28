@@ -30,14 +30,47 @@
         totalBagsVal: 0,
         totalBagsScaled: 0.0
       },
+      BarDance: {
+        totalPresentation: 0,
+        totalCatering: 0,
+        totalDrinking: 0,
+        totalDancing: 0
+      },
+      BarTime: {
+        lastTwenty: [],
+        drinkServedTime: 0
+      },
       DrinkTotal: {
         totalBeer: 0,
         totalWine: 0,
         totalSpirits: 0
       },
-      BarTime: {
-        lastTwenty: [],
-        drinkServedTime: 0
+      zones: {
+        Drinking: [],
+        Catering: [],
+        Presentation: [],
+        Dancing: []
+      },
+      EnterExit: {
+        enterVal: 0,
+        enterScaled: 0,
+        exitVal: 0,
+        exitScaled: 0,
+        timestamp: 0
+      },
+      InteractionMap: {
+        interactions: [],
+        locationIndex: 0,
+        locationTotal: 0,
+        teamIndex: 0,
+        totalInteractions: 0
+      },
+      Team: {
+        totalTeam1: 0,
+        totalTeam2: 0,
+        totalTeam3: 0,
+        totalTeam4: 0,
+        totalTeam5: 0
       }
     },
     oscClient = new osc.Client(config['data-wall'].host, config['data-wall'].port),
@@ -77,9 +110,14 @@
     });
 
     [
+      'Attendance',
       'BagCheck',
+      'BarDance',
+      'BarTime',
       'DrinkTotal',
-      'Attendance'
+      'EnterExit',
+      'InteractionMap',
+      'Team'
     ].map(function(channel){
       require('./osc/' + channel)(oscClient, aggregate, config);
     });
@@ -124,12 +162,70 @@
         bags = bagCheck.totalBagsVal;
 
         total = coats + purses + bags;
-        bagCheck.totalCoatsScaled = total * coats / 100;
-        bagCheck.totalPursesScaled = total * purses / 100;
-        bagCheck.totalBagsScaled = total * bags / 100;
+        bagCheck.totalCoatsScaled = coats / total *  100;
+        bagCheck.totalPursesScaled = purses / total * 100;
+        bagCheck.totalBagsScaled = bags / total * 100;
 
         break;
       case 'node':
+        function clearZones(userId) {
+          ['Drinking', 'Catering', 'Presentation', 'Dancing'].forEach(function(zone){
+            aggregate.zones[zone] = _.without(aggregate.zones[zone], userId);
+          });
+        }
+        switch(doc.location) {
+          case 'Glow Bar':
+          case 'S Bar':
+          case 'U Bar':
+          case 'Outside Bar':
+            if (aggregate.zones.Drinking.indexOf(doc.userId) < 0) {
+              clearZones(doc.userId);
+              aggregate.zones.Drinking.push(doc.userId);
+            }
+            break;
+          case 'Coat Check':
+            break;
+          case 'Catering':
+            if (aggregate.zones.Catering.indexOf(doc.userId) < 0) {
+              clearZones(doc.userId);
+              aggregate.zones.Catering.push(doc.userId);
+            }
+
+            break;
+          case 'Art Installation':
+            break;
+          case 'Data Wall':
+            break;
+          case 'Presentation Area':
+            if (aggregate.zones.Presentation.indexOf(doc.userId) < 0) {
+              clearZones(doc.userId);
+              aggregate.zones.Presentation.push(doc.userId);
+            }
+            break;
+          case 'Lounge':
+            break;
+          case 'Dance Floor':
+            if (aggregate.zones.Dancing.indexOf(doc.userId) < 0) {
+              clearZones(doc.userId);
+              aggregate.zones.Dancing.push(doc.userId);
+            }
+            break;
+          case 'Entrance':
+            aggregate.EnterExit.enterVal++;
+            var enterVal = aggregate.EnterExit.enterVal;
+            break;
+          case 'Exit':
+            aggregate.EnterExit.exitVal++;
+            var exitVal = aggregate.EnterExit.exitVal;
+            break;
+        }
+        aggregate.EnterExit.enterScaled = enterVal / (enterVal + exitVal) * 100;
+        aggregate.EnterExit.exitScaled = exitVal / (enterVal + exitVal) * 100;
+        aggregate.EnterExit.timestamp = (new Date()).getTime();
+        aggregate.BarDance.totalPresentation = aggregate.zones.Presentation.length;
+        aggregate.BarDance.totalDrinking = aggregate.zones.Drinking.length;
+        aggregate.BarDance.totalCatering = aggregate.zones.Catering.length;
+        aggregate.BarDance.totalDancing = aggregate.zones.Dancing.length;
 
         break;
     }

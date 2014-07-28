@@ -7,10 +7,10 @@ module.exports = function(client, aggregate, config){
     aggregate: aggregate,
     config: config,
     keys: [
-      'enterVal'
-      'enterScaled'
-      'exitVal'
-      'exitScaled'
+      'enterVal',
+      'enterScaled',
+      'exitVal',
+      'exitScaled',
       'timestamp'
     ]
   })
