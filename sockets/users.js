@@ -7,7 +7,7 @@ module.exports = function(io, dbs){
       socket.emit('read:result', []);
     });
     socket.on('create', function(data){
-      dbs.insert(data, data.id, function(err, result){
+      db.insert(data, data.id, function(err, result){
         if (err) {
           socket.emit('create:error', err);
         } else {

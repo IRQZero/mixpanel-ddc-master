@@ -15,7 +15,10 @@
     "crsh": "^0.3.2",
     "coffee-middleware": "^0.2.1",
     "grunt": "^0.4.5",
-    "simply-deferred": "^3.0.0"
+    "simply-deferred": "^3.0.0",
+    "csv": "^0.4.0",
+    "csv-parse": "0.0.5",
+    "stream-transform": "0.0.4"
   },
   "scripts": {
     "start": "node index.js"

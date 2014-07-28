@@ -44,9 +44,16 @@ module.exports = function(io, dbs){
       data.type = "node";
       var eventData = {},
         dfd = new Deferred();
+      console.log(data.userId);
       users.get(data.userId, function(err, user){
 
-        eventData.user = data.userId;
+        if (err) {
+          dfd.resolve(eventData);
+          return;
+        }
+
+        eventData.userId = data.userId;
+        eventData.user = user;
         eventData.team = user.team;
 
         if (data.location == null) {
@@ -55,7 +62,7 @@ module.exports = function(io, dbs){
             dfd.resolve(eventData);
           });
         } else {
-          eventData.location = location;
+          eventData.location = data.location;
           dfd.resolve(eventData);
         }
       });
