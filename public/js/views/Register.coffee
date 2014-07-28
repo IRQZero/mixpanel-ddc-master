@@ -15,8 +15,8 @@ define [
     mixins: [
       'Disposable.Mixin'
       'RemoveDisposed.ViewMixin'
-      'List.ViewMixin'
       'Attach.ViewMixin'
+      'List.ViewMixin'
       'AutoRender.ViewMixin'
     ]
   }

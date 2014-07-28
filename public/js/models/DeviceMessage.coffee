@@ -1,6 +1,6 @@
 define [
   'MixPanel'
-  'oraculum/mixins/listener'
+  'oraculum/mixins/disposable'
   'MixPanel/collections/mixins/Socket'
 ], (MixPanelFactory) ->
 
@@ -8,8 +8,10 @@ define [
     url: '/devices'
     defaults:
       location: "None"
+    onSocketResult: (resp) ->
   }, {
     mixins: [
+      'Disposable.Mixin'
       'Socket.CollectionMixin'
     ]
   }

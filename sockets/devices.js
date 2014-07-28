@@ -3,18 +3,19 @@ module.exports = function(io, dbs){
     devicesSocket = io.of('/devices'),
     users = dbs.users,
     events = dbs.events,
-    devices = dbs.devices;
+    devices = dbs.devices,
+    _ = require("underscore");
 
   devicesSocket.on('connection', function(socket){
 
     socket.on('read', function(data){
       if (data == null) {
         // register ui asking for list of devices
-        devices.list(function(err, result){
+        devices.list({include_docs: true}, function(err, result){
           if (err) {
             throw new Error(err);
           }
-          socket.emit('read:result', result.rows);
+          socket.emit('read:result', _.pluck(result.rows, 'doc'));
         });
       } else {
         var id = data.macAddress;
@@ -68,6 +69,14 @@ module.exports = function(io, dbs){
           }
         });
       });
+    });
+    socket.on('update', function(data){
+      dbs.devices.get(data.id, function(err, doc){
+        data._rev = doc._rev
+        dbs.devices.insert(data, data.id, function(err){
+          console.log(arguments)
+        })
+      })
     });
     socket.on('disconnect', function(){
       console.log('socket disconnected from /drinks namespace')

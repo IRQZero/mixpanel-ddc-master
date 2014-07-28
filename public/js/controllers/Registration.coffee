@@ -8,10 +8,9 @@ define [
 
   MixPanelFactory.extend 'Controller', 'Registration.Controller', {
     index: ->
-      @view = MixPanelFactory.get 'Register.View', {
+      @reuse 'devices', 'Register.View', {
         container: 'body'
         collection: 'Device.Collection'
-        model: 'DeviceMessage.Model'
       }
   }, {
     inheritMixins: true

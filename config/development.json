@@ -10,9 +10,11 @@
     }
   },
   "data-wall": {
-    "host": "127.0.0.1",
-    "port": 9999,
-    "interval": 300
+    "host": "10.0.1.35",
+    "port": 10000,
+    "channels": {
+      "BagCheck": 30
+    }
   },
   "less": {
     "force": true

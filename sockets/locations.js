@@ -4,15 +4,16 @@ module.exports = function(io, db){
       {name: "Glow Bar"},
       {name: "S Bar"},
       {name: "U Bar"},
+      {name: "Outside Bar"},
       {name: "Coat Check"},
       {name: "Catering"},
       {name: "Art Installation"},
-      {name: "Data Wall (changed)"},
+      {name: "Data Wall"},
       {name: "Presentation Area"},
-      {name: "Lounge (added to list)"},
+      {name: "Lounge"},
       {name: "Dance Floor"},
-      {name: "Entrance (added to list)"},
-      {name: "Exit (added to list)"},
+      {name: "Entrance"},
+      {name: "Exit"}
     ];
 
   locations.on('connection', function(socket){

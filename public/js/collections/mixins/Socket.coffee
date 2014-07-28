@@ -8,14 +8,15 @@ define [
   openNames = {}
 
   MixPanelFactory.defineMixin 'Socket.CollectionMixin', {
-    onSocketResult: (resp) ->
-      return false unless @set @parse resp
-      @trigger 'sync', this, resp
 
     onSocketWelcome: (resp) ->
       @messageReady.resolve()
 
     mixinitialize: ->
+      unless this.onSocketResult
+        @onSocketResult =  (resp) ->
+          return false unless @set @parse resp
+          @trigger 'sync', this, resp
       _.bindAll this, 'onSocketResult', 'onSocketWelcome'
       namespace = _.result this, 'url'
       if openNames[namespace]?

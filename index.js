@@ -48,7 +48,7 @@
         drinkServedTime: 0
       }
     },
-    oscClient = osc.Client(config['data-wall'].host, config['data-wall'].port),
+    oscClient = new osc.Client(config['data-wall'].host, config['data-wall'].port),
     index = "";
 
   fs.readFile(__dirname+'/public/index.html', function(err, content){
@@ -82,6 +82,12 @@
       'users'
     ].map(function(socket){
       require('./sockets/' + socket)(io, dbs);
+    });
+
+    [
+      'BagCheck'
+    ].map(function(channel){
+      require('./osc/' + channel)(oscClient, aggregate, config);
     });
 
     feed = dbs.events.follow({include_docs: true, });
@@ -130,7 +136,7 @@
 
         break;
       case 'node':
-        // lookup user id in userDb and get info to fill out team data
+
         break;
     }
     console.log(aggregate);
@@ -140,6 +146,8 @@
     oscClient.send.apply(oscClient, aggregate);
     setTimeout(updateVisual, config['data-wall'].interval);
   }
+
+
 
   server.listen(config.port);
 
