@@ -2,14 +2,15 @@ var Base = require("./Base");
 
 module.exports = function(client, aggregate, config){
   return new Base({
-    name: 'DrinkTotal',
+    name: 'InteractionMap',
     client: client,
     aggregate: aggregate,
     config: config,
     keys: [
-      'totalBeer',
-      'totalWine',
-      'totalSpirits'
+      "locationIndex",
+      "locationTotal",
+      "teamIndex",
+      "totalInteractions"
     ]
   });
 };

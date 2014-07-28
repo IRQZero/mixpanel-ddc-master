@@ -12,7 +12,7 @@ define [
 
   MixPanelFactory.extend 'View', 'Device.View', {
     events:
-      'click .send': 'send'
+      'touchstart .send': 'send'
     mixinOptions:
       disposable:
         disposeAll: true
@@ -40,5 +40,6 @@ define [
       'RemoveDisposed.ViewMixin'
       'Attach.ViewMixin'
       'UnderscoreTemplating.ViewMixin'
+      'AutoRender.ViewMixin'
     ]
   }

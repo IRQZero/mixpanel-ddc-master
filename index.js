@@ -23,18 +23,12 @@
         totalPeople: 210
       },
       BagCheck: {
-        totalCoats: {
-          val: 0,
-          scaled: 0.0
-        },
-        totalPurses: {
-          val: 0,
-          scaled: 0.0
-        },
-        totalBags: {
-          val: 0,
-          scaled: 0.0
-        }
+        totalCoatsVal: 0,
+        totalCoatsScaled: 0.0,
+        totalPursesVal: 0,
+        totalPursesScaled: 0.0,
+        totalBagsVal: 0,
+        totalBagsScaled: 0.0
       },
       DrinkTotal: {
         totalBeer: 0,
@@ -121,25 +115,24 @@
         var bagCheck = aggregate.BagCheck,
           total, coats, purses, bags;
 
-        bagCheck.totalCoats.val += doc.Coat;
-        bagCheck.totalPurses.val += doc.Purse;
-        bagCheck.totalBags.val += doc.Luggage;
+        bagCheck.totalCoatsVal += doc.Coat;
+        bagCheck.totalPursesVal += doc.Purse;
+        bagCheck.totalBagsVal += doc.Luggage;
 
-        coats = bagCheck.totalCoats.val;
-        purses = bagCheck.totalPurses.val;
-        bags = bagCheck.totalBags.val;
+        coats = bagCheck.totalCoatsVal;
+        purses = bagCheck.totalPursesVal;
+        bags = bagCheck.totalBagsVal;
 
         total = coats + purses + bags;
-        bagCheck.totalCoats.scaled = total / coats * 100;
-        bagCheck.totalPurses.scaled = total / purses * 100;
-        bagCheck.totalBags.scaled = total / bags * 100;
+        bagCheck.totalCoatsScaled = total * coats / 100;
+        bagCheck.totalPursesScaled = total * purses / 100;
+        bagCheck.totalBagsScaled = total * bags / 100;
 
         break;
       case 'node':
 
         break;
     }
-    console.log(aggregate);
   }
 
   function updateVisual(channel, interval) {

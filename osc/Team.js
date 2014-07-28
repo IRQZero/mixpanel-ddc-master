@@ -2,14 +2,16 @@ var Base = require("./Base");
 
 module.exports = function(client, aggregate, config){
   return new Base({
-    name: 'DrinkTotal',
+    name: 'Team',
     client: client,
     aggregate: aggregate,
     config: config,
     keys: [
-      'totalBeer',
-      'totalWine',
-      'totalSpirits'
+      "totalTeam1",
+      "totalTeam2",
+      "totalTeam3",
+      "totalTeam4",
+      "totalTeam5"
     ]
-  });
+  })
 };

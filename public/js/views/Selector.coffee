@@ -11,27 +11,29 @@ define [
 
   MixPanelFactory.extend 'View', 'Selector.View', {
     initialize: ({@valueKey, @modelKey}) ->
-      @updateView = _.debounce(@updateView.bind(this))
+      @updateView = _.debounce(@updateView.bind(this), 2000)
     tagName: 'select'
     events:
       change: 'updateSelection'
     mixinOptions:
       listen:
         'visibilityChange this': 'updateView'
+        'dispose:before this': 'stopListening'
       list:
         modelView: 'Option.View'
         viewOptions: ({model})->
           valueKey: @modelKey
           model: model
     updateView: ->
+      return if @disposed
       @$el.val(@model.get @valueKey)
     updateSelection: (event) ->
       @model.set @valueKey, @$el.val()
 
   }, {
     mixins: [
-      'Listener.Mixin'
       'Disposable.Mixin'
+      'Listener.Mixin'
       'RemoveDisposed.ViewMixin'
       'Attach.ViewMixin'
       'List.ViewMixin'

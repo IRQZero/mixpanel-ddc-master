@@ -74,7 +74,7 @@ module.exports = function(io, dbs){
       dbs.devices.get(data.id, function(err, doc){
         data._rev = doc._rev
         dbs.devices.insert(data, data.id, function(err){
-          console.log(arguments)
+          devicesSocket.emit('update:result', data);
         })
       })
     });

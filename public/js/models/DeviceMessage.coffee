@@ -9,6 +9,8 @@ define [
     defaults:
       location: "None"
     onSocketResult: (resp) ->
+    initialize: (attrs)->
+      @set 'id', attrs._id
   }, {
     mixins: [
       'Disposable.Mixin'

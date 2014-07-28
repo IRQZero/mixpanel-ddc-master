@@ -6,7 +6,7 @@ define [
   MixPanelFactory.extend 'Button.View', 'ActionButton.View', {
     initialize: ({@actionModel}) ->
     events:
-      click: 'commitAction'
+      touchstart: 'commitAction'
     commitAction: ->
       name = @model.get 'name'
       @actionModel[name]()

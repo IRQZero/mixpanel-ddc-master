@@ -6,7 +6,7 @@ define [
   MixPanelFactory.extend 'Button.View', 'AddButton.View', {
     initialize: ({@setModel}) ->
     events:
-      click: 'addItem'
+      touchstart: 'addItem'
     addItem: ->
       name = @model.get 'name'
       @setModel.set name, @setModel.get(name) + 1

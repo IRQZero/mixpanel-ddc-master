@@ -6,7 +6,7 @@ define [
 
   MixPanelFactory.extend 'View', 'Button.View', {
     events:
-      'click': ->
+      'touchstart': ->
         @executeCallback 'router:route', {url: @model.get 'name'}
     tagName: 'button'
     className: 'btn btn-primary btn-large'

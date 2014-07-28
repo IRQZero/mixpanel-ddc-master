@@ -6,7 +6,7 @@ define [
   MixPanelFactory.extend 'Button.View', 'SetButton.View', {
     initialize: ({@setModel, @setKey}) ->
     events:
-      click: 'setValue'
+      touchstart: 'setValue'
     setValue: ->
       @setModel.set @setKey, @model.get 'name'
   }, {

@@ -5,6 +5,9 @@ define [
 
   MixPanelFactory.extend 'View', 'MixPanel.Layout', {
     el: 'body'
+    events:
+      'dblclick': ->
+        return false;
   }, {
     mixins: [
       'Layout.ViewMixin'
