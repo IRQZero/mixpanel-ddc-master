@@ -142,15 +142,23 @@
     var doc = change.doc;
 
     if (doc.team) {
-      aggregate.Team['total' + teamMap[doc.team]]]++;
-      sockets.devices.sockets.emit('team:result', _.chain(Object.keys(aggregate.Team)).map(function(key){
-        return {name: key, aggregate.Team[key]};
+
+      aggregate.Team['total' + teamMap[doc.team]]++;
+
+      var highScore = _.chain(Object.keys(aggregate.Team)).map(function(key){
+        return {name: key, score : aggregate.Team[key]};
       }).reduce(function(m, team){
         if (team.score > m.score) {
           return team;
         }
         return m;
-      },{name: 'None', score: 0}));
+      },{name: 'None', score: 0}).value();
+
+      Object.keys(sockets.devices.connected).map(function(key){
+        return sockets.devices.connected[key];
+      }).forEach(function(socket){
+        socket.emit('team:result', highScore);
+      });
     }
 
     switch (doc.type) {
