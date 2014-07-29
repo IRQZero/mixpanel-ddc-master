@@ -26,4 +26,5 @@ module.exports = function(io, db){
 
     socket.emit('welcome');
   });
+  return locations;
 };

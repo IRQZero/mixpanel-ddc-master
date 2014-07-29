@@ -27,4 +27,6 @@ module.exports = function(io, dbs){
 
     socket.emit('welcome');
   });
+
+  return coats;
 };

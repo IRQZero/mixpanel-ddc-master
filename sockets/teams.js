@@ -1,10 +1,10 @@
 module.exports = function(io, db){
   var teams = io.of('/teams'),
     teamArray = [
-      {name: 'Blue'},
-      {name: 'Teal'},
-      {name: 'Orange'},
       {name: 'Purple'},
+      {name: 'Blue'},
+      {name: 'Green'},
+      {name: 'Orange'},
       {name: 'Magenta'}
     ];
 
@@ -18,4 +18,5 @@ module.exports = function(io, db){
 
     socket.emit('welcome');
   });
+  return teams;
 };

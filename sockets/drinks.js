@@ -27,4 +27,5 @@ module.exports = function(io, dbs){
 
     socket.emit('welcome');
   });
+  return drinks;
 };

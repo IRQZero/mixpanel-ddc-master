@@ -73,8 +73,16 @@
         totalTeam5: 0
       }
     },
+    teamMap = {
+      Purple : "Team1",
+      Blue : "Team2",
+      Green : "Team3",
+      Orange : "Team4",
+      Magenta : "Team5"
+    },
     oscClient = new osc.Client(config['data-wall'].host, config['data-wall'].port),
-    index = "";
+    index = "",
+    sockets = {};
 
   fs.readFile(__dirname+'/public/index.html', function(err, content){
     if (err) {
@@ -106,7 +114,7 @@
       'locations',
       'users'
     ].map(function(socket){
-      require('./sockets/' + socket)(io, dbs);
+      sockets[socket] = require('./sockets/' + socket)(io, dbs);
     });
 
     [
@@ -132,6 +140,19 @@
 
   function updateAggregate(change) {
     var doc = change.doc;
+
+    if (doc.team) {
+      aggregate.Team['total' + teamMap[doc.team]]]++;
+      sockets.devices.sockets.emit('team:result', _.chain(Object.keys(aggregate.Team)).map(function(key){
+        return {name: key, aggregate.Team[key]};
+      }).reduce(function(m, team){
+        if (team.score > m.score) {
+          return team;
+        }
+        return m;
+      },{name: 'None', score: 0}));
+    }
+
     switch (doc.type) {
       case 'bar':
         var drinkTotal = aggregate.DrinkTotal,
@@ -173,6 +194,7 @@
             aggregate.zones[zone] = _.without(aggregate.zones[zone], userId);
           });
         }
+
         switch(doc.location) {
           case 'Glow Bar':
           case 'S Bar':
