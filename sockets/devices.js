@@ -86,7 +86,7 @@ module.exports = function(io, dbs){
       })
     });
     socket.on('disconnect', function(){
-      console.log('socket disconnected from /drinks namespace')
+      console.log('socket disconnected from /devices namespace')
     });
 
     socket.emit('welcome');
