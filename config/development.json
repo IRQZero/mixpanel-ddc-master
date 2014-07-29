@@ -15,7 +15,12 @@
     "channels": {
       "BagCheck": 10000,
       "DrinkTotal": 10000,
-      "Attendance": 10000
+      "Attendance": 10000,
+      "BarDance": 10000,
+      "Team": 10000,
+      "EnterExit": 10000,
+      "InteractionMap": 10000,
+      "BarTime": 10000
     }
   },
   "less": {
