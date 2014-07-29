@@ -78,7 +78,12 @@
       Green : "Team2",
       Orange : "Team3",
       Magenta : "Team4",
-      Purple : "Team5"
+      Purple : "Team5",
+      Team1 : "Blue",
+      Team2 : "Green",
+      Team3 : "Orange",
+      Team4 : "Magenta",
+      Team5 : "Purple"
     },
     oscClient = new osc.Client(config['data-wall'].host, config['data-wall'].port),
     index = "",
@@ -144,10 +149,9 @@
     if (doc.team) {
       console.log("Got message for team " + doc.team);
       aggregate.Team['total' + teamMap[doc.team]]++;
-
       var data = _.chain(Object.keys(aggregate.Team)).map(function(key){
         return {
-          team: key,
+          team: teamMap[key],
           score : aggregate.Team[key],
           user: doc.team,
           macAddress: doc.macAddress
