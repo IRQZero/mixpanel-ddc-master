@@ -157,7 +157,7 @@
           return team;
         }
         return m;
-      },{team: '', user: '', macAddress: '' score: 0}).value();
+      },{team: '', user: '', macAddress: '', score: 0}).value();
 
 
       Object.keys(sockets.devices.connected).map(function(key){
