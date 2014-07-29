@@ -48,9 +48,12 @@ module.exports = function(io, dbs){
       users.get(data.userId, function(err, user){
 
         if (err) {
+          console.log('Unable to find user ' + data.userId);
           dfd.resolve(eventData);
           return;
         }
+
+        console.log(user);
 
         eventData.userId = data.userId;
         eventData.user = user;
