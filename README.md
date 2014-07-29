@@ -11,7 +11,17 @@ The master server will be able to server the following functions:
   * send aggregate data to data-wall via osc
 
 To run:
+-------
 
   `npm install`
   `./node_modules/.bin/bower install`
   `npm start`
+
+To import the users (Server must be running):
+---------------------------------------------
+
+  `cd scripts`
+  `../node_modules/.bin/coffee userImport.coffee`
+
+once all the users in the csv are imported you should kill the script with
+ctrl-c.
