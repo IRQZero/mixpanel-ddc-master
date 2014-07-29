@@ -145,14 +145,21 @@
       console.log("Got message for team " + doc.team);
       aggregate.Team['total' + teamMap[doc.team]]++;
 
-      var highScore = _.chain(Object.keys(aggregate.Team)).map(function(key){
-        return {name: key, score : aggregate.Team[key]};
+      var data = _.chain(Object.keys(aggregate.Team)).map(function(key){
+        return {
+          team: key,
+          score : aggregate.Team[key],
+          user: doc.team,
+          macAddress: doc.macAddress
+        };
       }).reduce(function(m, team){
         if (team.score > m.score) {
           return team;
         }
         return m;
       },{name: 'None', score: 0}).value();
+
+      data.
 
       Object.keys(sockets.devices.connected).map(function(key){
         return sockets.devices.connected[key];
