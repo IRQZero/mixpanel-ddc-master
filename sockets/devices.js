@@ -58,7 +58,7 @@ module.exports = function(io, dbs){
         eventData.userId = data.userId;
         eventData.user = user;
         eventData.team = user.teamColor;
-        eventData.madAddress = data.macAddress;
+        eventData.macAddress = data.macAddress;
 
         if (data.location == null) {
           devices.get(data.macAddress, function(err, device){
