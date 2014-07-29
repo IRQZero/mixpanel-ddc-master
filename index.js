@@ -157,14 +157,13 @@
           return team;
         }
         return m;
-      },{name: 'None', score: 0}).value();
+      },{team: '', user: '', macAddress: '' score: 0}).value();
 
-      data.
 
       Object.keys(sockets.devices.connected).map(function(key){
         return sockets.devices.connected[key];
       }).forEach(function(socket){
-        socket.emit('team:result', highScore);
+        socket.emit('team:result', data);
       });
     }
 
