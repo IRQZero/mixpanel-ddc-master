@@ -142,7 +142,7 @@
     var doc = change.doc;
 
     if (doc.team) {
-
+      console.log("Got message for team " + doc.team);
       aggregate.Team['total' + teamMap[doc.team]]++;
 
       var highScore = _.chain(Object.keys(aggregate.Team)).map(function(key){
