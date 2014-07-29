@@ -5,6 +5,7 @@ define [
 ], (MixPanelFactory) ->
 
   MixPanelFactory.extend 'Collection', 'Location.Collection', {
+    idAttribute: 'name'
     url: '/locations'
     model: 'Model'
     parse: (resp) ->
