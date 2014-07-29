@@ -14,8 +14,8 @@
     "port": 10000,
     "channels": {
       "BagCheck": 10000,
-      "DrinkTotal": 1000,
-      "Attendance": 1000
+      "DrinkTotal": 10000,
+      "Attendance": 10000
     }
   },
   "less": {
