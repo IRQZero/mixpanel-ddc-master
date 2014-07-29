@@ -74,11 +74,11 @@
       }
     },
     teamMap = {
-      Purple : "Team1",
-      Blue : "Team2",
-      Green : "Team3",
-      Orange : "Team4",
-      Magenta : "Team5"
+      Blue : "Team1",
+      Green : "Team2",
+      Orange : "Team3",
+      Magenta : "Team4",
+      Purple : "Team5"
     },
     oscClient = new osc.Client(config['data-wall'].host, config['data-wall'].port),
     index = "",

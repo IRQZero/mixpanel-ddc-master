@@ -16,6 +16,7 @@ keys = [
 ]
 
 socket.on 'connect', ->
+  done = 0;
   fs.readFile '../data/users.csv', 'utf-8', (err, content) ->
     parse content, {comment: '#'}, (err, data) ->
       data.map (values) =>
@@ -24,3 +25,5 @@ socket.on 'connect', ->
           obj
         , {})
         socket.emit('create', user)
+        done++;
+        console.log(done + ' records imported');
