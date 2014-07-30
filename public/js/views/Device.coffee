@@ -47,7 +47,7 @@ define [
     toggleNode: ->
       @model.set {node: (@$('.node input').is(':checked'))}, {silent: true}
     togglePlinth: ->
-      @model.set {node: @$('.plinth input').is(':checked')}, {silent: true}
+      @model.set {plinth: @$('.plinth input').is(':checked')}, {silent: true}
     stop: ->
       @model.sync 'stop', @model
     start: ->
