@@ -84,7 +84,9 @@ module.exports = function(io, dbs){
     });
     socket.on('update', function(data){
       dbs.devices.get(data.id, function(err, doc){
-        data._rev = doc._rev
+        if (doc && doc._rev){
+          data._rev = doc._rev
+        }
         dbs.devices.insert(data, data.id, function(err){
           devicesSocket.emit('update:result', data);
         })
