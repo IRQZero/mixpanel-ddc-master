@@ -71,7 +71,8 @@
     var aggregator = new Aggregator({
       dbs: dbs,
       sockets: sockets,
-      config: config
+      config: config,
+      replay: process.env['NODE_ENV'] === 'development'
     });
 
     [
