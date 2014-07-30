@@ -4,7 +4,8 @@ module.exports = function(io, dbs){
     users = dbs.users,
     events = dbs.events,
     devices = dbs.devices,
-    _ = require("underscore");
+    _ = require("underscore"),
+    socketsByMac = {};
 
   devicesSocket.on('connection', function(socket){
 
@@ -19,6 +20,8 @@ module.exports = function(io, dbs){
         });
       } else {
         var id = data.macAddress;
+        socket.macAddress = id;
+        socketsByMac[id] = socket;
         devices.get(id, function(err, body){
           if (err) {
             // create the device if the the err is missing
@@ -89,7 +92,17 @@ module.exports = function(io, dbs){
         })
       })
     });
-    socket.on('disconnect', function(){
+
+    socket.on('stop', function(data){
+      socketsByMac[data.id].emit('stop');
+    });
+
+    socket.on('start', function(data){
+      socketsByMac[data.id].emit('start', data);
+    });
+
+    socket.on('disconnect', function(socket){
+      delete socketsByMac[socket.macAddress];
       console.log('socket disconnected from /devices namespace')
     });
 

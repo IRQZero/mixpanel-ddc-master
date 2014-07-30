@@ -8,6 +8,7 @@ define [
     url: '/devices'
     defaults:
       location: "None"
+      node: true
     onSocketResult: (resp) ->
     initialize: (attrs)->
       @set 'id', attrs._id
