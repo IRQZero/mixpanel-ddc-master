@@ -72,7 +72,7 @@
       dbs: dbs,
       sockets: sockets,
       config: config,
-      replay: process.env['NODE_ENV'] === 'development'
+      replay: env === 'development'
     });
 
     [
