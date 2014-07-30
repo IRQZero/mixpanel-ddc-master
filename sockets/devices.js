@@ -94,7 +94,7 @@ module.exports = function(io, dbs){
     });
 
     socket.on('stop', function(data){
-      if (socketsByMap[data.id] === undefined) {
+      if (socketsByMac[data.id] === undefined) {
         console.error('device not connected', data.id);
         return;
       }
@@ -102,7 +102,7 @@ module.exports = function(io, dbs){
     });
 
     socket.on('start', function(data){
-      if (socketsByMap[data.id] === undefined) {
+      if (socketsByMac[data.id] === undefined) {
         console.error('device not connected', data.id);
         return;
       }
