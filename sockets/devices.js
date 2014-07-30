@@ -44,10 +44,10 @@ module.exports = function(io, dbs){
       }
     });
     socket.on('create', function(data){
-      data.type = "node";
-      var eventData = {},
+      var eventData = {
+        type: 'node'
+      },
         dfd = new Deferred();
-      console.log(data.userId);
       users.get(data.userId, function(err, user){
 
         if (err) {
@@ -55,8 +55,6 @@ module.exports = function(io, dbs){
           dfd.resolve(eventData);
           return;
         }
-
-        console.log(user);
 
         eventData.userId = data.userId;
         eventData.user = user;
