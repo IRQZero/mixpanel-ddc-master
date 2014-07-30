@@ -4,7 +4,6 @@ module.exports = function(io, db){
       {name: "Glow Bar"},
       {name: "S Bar"},
       {name: "U Bar"},
-      {name: "Outside Bar"},
       {name: "Coat Check"},
       {name: "Catering"},
       {name: "Art Installation"},

@@ -10,20 +10,21 @@
     }
   },
   "data-wall": {
-    "host": "192.168.1.111",
+    "host": "10.0.1.35",
     "port": 10000,
     "channels": {
       "BagCheck": 10000,
-      "DrinkTotal": 10000,
-      "Attendance": 10000,
-      "BarDance": 10000,
-      "Team": 10000,
-      "EnterExit": 10000,
-      "InteractionMap": 10000,
-      "BarTime": 10000
+      "DrinkTotal": 10500,
+      "Attendance": 11000,
+      "BarDance": 11500,
+      "Team": 12000,
+      "EnterExit": 12500,
+      "InteractionMap": 13000,
+      "BarTime": 13500
     }
   },
   "less": {
     "force": true
-  }
+  },
+  "partyTime": 1406941200000
 }

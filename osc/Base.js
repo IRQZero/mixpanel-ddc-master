@@ -3,6 +3,7 @@ function BaseOscChannel(params){
   this.client = params.client;
   this.data = params.aggregate[this.name];
   this.keys = params.keys;
+  this.config = params.config;
   this.interval = params.config['data-wall'].channels[this.name];
   this.initialize.apply(this, arguments);
 };
