@@ -68,6 +68,8 @@
       sockets[socket] = require('./sockets/' + socket)(io, dbs);
     });
 
+    console.log(sockets);
+
     var aggregator = new Aggregator({
       dbs: dbs,
       sockets: sockets,
