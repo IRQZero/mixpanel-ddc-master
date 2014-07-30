@@ -94,10 +94,18 @@ module.exports = function(io, dbs){
     });
 
     socket.on('stop', function(data){
+      if (socketsByMap[data.id] === undefined) {
+        console.error('device not connected', data.id);
+        return;
+      }
       socketsByMac[data.id].emit('stop');
     });
 
     socket.on('start', function(data){
+      if (socketsByMap[data.id] === undefined) {
+        console.error('device not connected', data.id);
+        return;
+      }
       socketsByMac[data.id].emit('start', data);
     });
 
