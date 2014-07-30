@@ -1,3 +1,4 @@
+env = process.env['NODE_ENV']
 csv = require 'csv'
 fs = require 'fs'
 parse = csv.parse
@@ -17,7 +18,7 @@ keys = [
 
 socket.on 'connect', ->
   done = 0;
-  fs.readFile '../data/users.csv', 'utf-8', (err, content) ->
+  fs.readFile "../data/users-#{env}.csv", 'utf-8', (err, content) ->
     parse content, {comment: '#'}, (err, data) ->
       data.map (values) =>
         user = keys.reduce((obj, key, idx) =>

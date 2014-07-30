@@ -9,6 +9,7 @@ define [
 ], (MixPanelFactory) ->
 
   MixPanelFactory.extend 'View', 'Report.View', {
+    className: 'report'
     mixinOptions:
       listen:
         'change model': 'render'
