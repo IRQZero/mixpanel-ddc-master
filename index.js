@@ -79,11 +79,11 @@
       Orange : "Team3",
       Magenta : "Team4",
       Purple : "Team5",
-      Team1 : "Blue",
-      Team2 : "Green",
-      Team3 : "Orange",
-      Team4 : "Magenta",
-      Team5 : "Purple"
+      totalTeam1 : "Blue",
+      totalTeam2 : "Green",
+      totalTeam3 : "Orange",
+      totalTeam4 : "Magenta",
+      totalTeam5 : "Purple"
     },
     oscClient = new osc.Client(config['data-wall'].host, config['data-wall'].port),
     index = "",
