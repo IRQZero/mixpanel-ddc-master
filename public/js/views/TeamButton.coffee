@@ -9,11 +9,11 @@ define [
        @mixinOptions.backgroundColor = @stringToColor[@model.get 'name']
 
     stringToColor: 
-       'Blue':      'rgb(18, 75, 116)'
-       'Green':     'rgb(26, 111, 45)'
-       'Orange':    'rgb(128, 63, 21)'
-       'Magenta':   'rgb(128, 0, 89)'
-       'Purple':    'rgb(61, 38, 79)'
+       'Blue':      '#239AD2'
+       'Green':     '#20BAA0'
+       'Orange':    '#FFB25B'
+       'Magenta':   '#FF00FF'
+       'Purple':    '#554A9A'
     
   }, {
     inheritMixins: true
