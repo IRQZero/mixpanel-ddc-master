@@ -7,7 +7,7 @@ module.exports = function(nano, config, next){
 
   when.apply(Deferred, Object.keys(dbNames).map(function(name){
     var dfd = new Deferred();
-    nano.db.create(name, function(){
+    nano.db.create(dbNames[name], function(){
       var db = nano.use(name);
       dbs[name] = db;
       dfd.resolve({name: name, db: db});
