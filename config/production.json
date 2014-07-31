@@ -6,7 +6,7 @@
     "dbs": {
       "events": "mixpanel-ddc-events-final",
       "users": "mixpanel-ddc-users-final",
-      "devices": "mixpane-ddc-devices-final"
+      "devices": "mixpane-ddc-devices-development"
     }
   },
   "data-wall": {
