@@ -4,14 +4,14 @@
     "host": "127.0.0.1",
     "port": 5984,
     "dbs": {
-      "events": "mixpanel-ddc-events-production",
-      "users": "mixpanel-ddc-users-production",
-      "devices": "mixpane-ddc-devices-production"
+      "events": "mixpanel-ddc-events-final",
+      "users": "mixpanel-ddc-users-final",
+      "devices": "mixpane-ddc-devices-final"
     }
   },
   "data-wall": {
-    "host": "127.0.0.1",
-    "port": 9999,
+    "host": "10.10.200.51",
+    "port": 10000,
     "interval": 300
   },
   "less": {
