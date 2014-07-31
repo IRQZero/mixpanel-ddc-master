@@ -3,6 +3,7 @@ define [
   'MixPanel/views/Report'
   'MixPanel/views/SetButton'
   'MixPanel/views/AddButton'
+  'MixPanel/views/TeamButton'
   'MixPanel/collections/Coat'
   'MixPanel/collections/Team'
   'MixPanel/views/ButtonPanel'
@@ -35,7 +36,7 @@ define [
         team: ->
           view: 'ButtonPanel.View'
           viewOptions:
-            modelView: 'SetButton.View'
+            modelView: 'TeamButton.View'
             heightRatio: 0.75
             viewOptions:
               setModel: @model
