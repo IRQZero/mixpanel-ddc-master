@@ -72,7 +72,7 @@
       dbs: dbs,
       sockets: sockets,
       config: config,
-      replay: env === 'development'
+      replay: true
     });
 
     [
