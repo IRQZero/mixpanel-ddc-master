@@ -15,11 +15,15 @@ BaseOscChannel.prototype = {
   },
 
   sendMessage: function (message) {
-    var client = this.client;
-    message.forEach(function(part){
-      if (part == null) return;
-      client.send.apply(client, part);
-    });
+    try {
+	    var client = this.client;
+	    message.forEach(function(part){
+	      if (part == null) return;
+	      client.send.apply(client, part);
+	    });
+    } catch (e) {
+	console.error(e);
+    }
   },
 
   encodeMessage: function (){
