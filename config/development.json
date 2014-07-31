@@ -10,7 +10,7 @@
     }
   },
   "data-wall": {
-    "host": "10.10.200.34",
+    "host": "10.10.200.51",
     "port": 10000,
     "channels": {
       "BagCheck": 10000,
