@@ -15,7 +15,7 @@ keys = [
   "id"
   "teamColor"
 ]
-
+console.log("trying to connect for #{env}")
 socket.on 'connect', ->
   done = 0;
   fs.readFile "../data/users-#{env}.csv", 'utf-8', (err, content) ->
