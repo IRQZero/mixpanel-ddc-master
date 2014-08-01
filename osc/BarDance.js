@@ -7,18 +7,12 @@ module.exports = function(client, aggregate, config){
     aggregate: aggregate,
     config: config,
     keys: [
-      "totalPresentation",
-      "totalCatering"
+      "totalDrinking",
+      "totalDancing"
     ]
   });
 
   BarDance.sendMessage = function(message){
-    if ((new Date()).getTime() >= this.config.partyTime) {
-      this.keys = [
-        "totalDrinking",
-        "totalDancing"
-      ]
-    }
     var client = this.client;
     message.forEach(function(part){
       if (part == null) return;
