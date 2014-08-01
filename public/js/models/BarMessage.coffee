@@ -18,7 +18,7 @@ define [
       @started = (new Date()).getTime() unless @started?
     getTime: ->
       ended = (new Date()).getTime()
-      @set time: ended - @started
+      @set time: (ended - @started) / 1000
     resetTimer: ->
       @started = null
     parse: ->
