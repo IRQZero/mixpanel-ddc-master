@@ -13,14 +13,14 @@
     "host": "10.10.200.51",
     "port": 10000,
     "channels": {
-      "BagCheck": 10000,
-      "DrinkTotal": 10500,
-      "Attendance": 11000,
-      "BarDance": 11500,
-      "Team": 12000,
-      "EnterExit": 12500,
-      "InteractionMap": 13000,
-      "BarTime": 13500
+      "BagCheck": 5000,
+      "DrinkTotal": 5250,
+      "Attendance": 5500,
+      "BarDance": 5750,
+      "Team": 6000,
+      "EnterExit": 6250,
+      "InteractionMap": 6500,
+      "BarTime": 6750
     }
   },
   "less": {
